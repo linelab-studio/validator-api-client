@@ -87,7 +87,7 @@ try {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://app.rive-gauche.fr/validator/api*
+All URIs are relative to *http://localhost/validator/api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
