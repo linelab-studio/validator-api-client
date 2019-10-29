@@ -283,7 +283,7 @@ class ValidatorEmailResponse implements ModelInterface, ArrayAccess
     /**
      * Sets code
      *
-     * @param int|null $code 0 - email not exist, 1 - exist, >0 - problem checking
+     * @param int|null $code 0 - email not exist, 1 - exist, 2 - host replies addres always exist, 3 - cennnot by checked, -1 - exception
      *
      * @return $this
      */

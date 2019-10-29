@@ -116,36 +116,38 @@ class PhoneApi
     }
 
     /**
-     * Operation checkPhoneValueGet
+     * Operation checkPhoneGet
      *
      * Return status Phone number
      *
      * @param  string $value Phone to check (required)
+     * @param  string $iso FR|PL (optional, default to 'FR')
      *
      * @throws \Service\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Service\Module\ValidatorPhoneResponse|\Service\Module\ApiErrorResponse
      */
-    public function checkPhoneValueGet($value)
+    public function checkPhoneGet($value, $iso = 'FR')
     {
-        list($response) = $this->checkPhoneValueGetWithHttpInfo($value);
+        list($response) = $this->checkPhoneGetWithHttpInfo($value, $iso);
         return $response;
     }
 
     /**
-     * Operation checkPhoneValueGetWithHttpInfo
+     * Operation checkPhoneGetWithHttpInfo
      *
      * Return status Phone number
      *
      * @param  string $value Phone to check (required)
+     * @param  string $iso FR|PL (optional, default to 'FR')
      *
      * @throws \Service\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Service\Module\ValidatorPhoneResponse|\Service\Module\ApiErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function checkPhoneValueGetWithHttpInfo($value)
+    public function checkPhoneGetWithHttpInfo($value, $iso = 'FR')
     {
-        $request = $this->checkPhoneValueGetRequest($value);
+        $request = $this->checkPhoneGetRequest($value, $iso);
 
         try {
             $options = $this->createHttpClientOption();
@@ -241,18 +243,19 @@ class PhoneApi
     }
 
     /**
-     * Operation checkPhoneValueGetAsync
+     * Operation checkPhoneGetAsync
      *
      * Return status Phone number
      *
      * @param  string $value Phone to check (required)
+     * @param  string $iso FR|PL (optional, default to 'FR')
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function checkPhoneValueGetAsync($value)
+    public function checkPhoneGetAsync($value, $iso = 'FR')
     {
-        return $this->checkPhoneValueGetAsyncWithHttpInfo($value)
+        return $this->checkPhoneGetAsyncWithHttpInfo($value, $iso)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -261,19 +264,20 @@ class PhoneApi
     }
 
     /**
-     * Operation checkPhoneValueGetAsyncWithHttpInfo
+     * Operation checkPhoneGetAsyncWithHttpInfo
      *
      * Return status Phone number
      *
      * @param  string $value Phone to check (required)
+     * @param  string $iso FR|PL (optional, default to 'FR')
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function checkPhoneValueGetAsyncWithHttpInfo($value)
+    public function checkPhoneGetAsyncWithHttpInfo($value, $iso = 'FR')
     {
         $returnType = '\Service\Module\ValidatorPhoneResponse';
-        $request = $this->checkPhoneValueGetRequest($value);
+        $request = $this->checkPhoneGetRequest($value, $iso);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -310,38 +314,39 @@ class PhoneApi
     }
 
     /**
-     * Create request for operation 'checkPhoneValueGet'
+     * Create request for operation 'checkPhoneGet'
      *
      * @param  string $value Phone to check (required)
+     * @param  string $iso FR|PL (optional, default to 'FR')
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function checkPhoneValueGetRequest($value)
+    protected function checkPhoneGetRequest($value, $iso = 'FR')
     {
         // verify the required parameter 'value' is set
         if ($value === null || (is_array($value) && count($value) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $value when calling checkPhoneValueGet'
+                'Missing the required parameter $value when calling checkPhoneGet'
             );
         }
 
-        $resourcePath = '/checkPhone/{value}';
+        $resourcePath = '/checkPhone';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
 
-
-        // path params
+        // query params
         if ($value !== null) {
-            $resourcePath = str_replace(
-                '{' . 'value' . '}',
-                ObjectSerializer::toPathValue($value),
-                $resourcePath
-            );
+            $queryParams['value'] = ObjectSerializer::toQueryValue($value);
         }
+        // query params
+        if ($iso !== null) {
+            $queryParams['iso'] = ObjectSerializer::toQueryValue($iso);
+        }
+
 
         // body params
         $_tempBody = null;

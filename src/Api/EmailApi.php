@@ -116,7 +116,7 @@ class EmailApi
     }
 
     /**
-     * Operation checkEmailValueGet
+     * Operation checkEmailGet
      *
      * Return status Email
      *
@@ -126,14 +126,14 @@ class EmailApi
      * @throws \InvalidArgumentException
      * @return \Service\Module\ValidatorEmailResponse|\Service\Module\ApiErrorResponse
      */
-    public function checkEmailValueGet($value)
+    public function checkEmailGet($value)
     {
-        list($response) = $this->checkEmailValueGetWithHttpInfo($value);
+        list($response) = $this->checkEmailGetWithHttpInfo($value);
         return $response;
     }
 
     /**
-     * Operation checkEmailValueGetWithHttpInfo
+     * Operation checkEmailGetWithHttpInfo
      *
      * Return status Email
      *
@@ -143,9 +143,9 @@ class EmailApi
      * @throws \InvalidArgumentException
      * @return array of \Service\Module\ValidatorEmailResponse|\Service\Module\ApiErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function checkEmailValueGetWithHttpInfo($value)
+    public function checkEmailGetWithHttpInfo($value)
     {
-        $request = $this->checkEmailValueGetRequest($value);
+        $request = $this->checkEmailGetRequest($value);
 
         try {
             $options = $this->createHttpClientOption();
@@ -241,7 +241,7 @@ class EmailApi
     }
 
     /**
-     * Operation checkEmailValueGetAsync
+     * Operation checkEmailGetAsync
      *
      * Return status Email
      *
@@ -250,9 +250,9 @@ class EmailApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function checkEmailValueGetAsync($value)
+    public function checkEmailGetAsync($value)
     {
-        return $this->checkEmailValueGetAsyncWithHttpInfo($value)
+        return $this->checkEmailGetAsyncWithHttpInfo($value)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -261,7 +261,7 @@ class EmailApi
     }
 
     /**
-     * Operation checkEmailValueGetAsyncWithHttpInfo
+     * Operation checkEmailGetAsyncWithHttpInfo
      *
      * Return status Email
      *
@@ -270,10 +270,10 @@ class EmailApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function checkEmailValueGetAsyncWithHttpInfo($value)
+    public function checkEmailGetAsyncWithHttpInfo($value)
     {
         $returnType = '\Service\Module\ValidatorEmailResponse';
-        $request = $this->checkEmailValueGetRequest($value);
+        $request = $this->checkEmailGetRequest($value);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -310,38 +310,34 @@ class EmailApi
     }
 
     /**
-     * Create request for operation 'checkEmailValueGet'
+     * Create request for operation 'checkEmailGet'
      *
      * @param  string $value Email to check (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function checkEmailValueGetRequest($value)
+    protected function checkEmailGetRequest($value)
     {
         // verify the required parameter 'value' is set
         if ($value === null || (is_array($value) && count($value) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $value when calling checkEmailValueGet'
+                'Missing the required parameter $value when calling checkEmailGet'
             );
         }
 
-        $resourcePath = '/checkEmail/{value}';
+        $resourcePath = '/checkEmail';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
 
-
-        // path params
+        // query params
         if ($value !== null) {
-            $resourcePath = str_replace(
-                '{' . 'value' . '}',
-                ObjectSerializer::toPathValue($value),
-                $resourcePath
-            );
+            $queryParams['value'] = ObjectSerializer::toQueryValue($value);
         }
+
 
         // body params
         $_tempBody = null;

@@ -437,7 +437,7 @@ class Configuration
     {
         return array(
           array(
-            "url" => "https://app.rive-gauche.fr/validator/api",
+            "url" => "https://localhost/validator/api",
             "description" => "No description provided",
           )
         );
